@@ -5,16 +5,22 @@ namespace Entities;
 class Library
 {
     private string $name;
+    private Connection $con;
     private array $books;
     private array $users;
     private array $librarians;
     private array $members;
 
-    public function __construct(string $name){
+    public function __construct(string $name,Connection $con){
+        $this->con = $con;
         $this->name = $name;
     }
     public function addBook(Book $book):void{
-        array_push($this->books,$book);
+        $sql = "INSERT INTO books (isbn, title, author) VALUES (?, ?, ?)";
+        $stmt = $this->con->prepare($sql);
+        $stmt->execute(['123456', 'PHP Book', 'John Doe']);
+
+        echo "Book ".$book->getTitle()."added successfully !";
     }
     public function registerMember(Member $member):void{
         array_push($this->members);
