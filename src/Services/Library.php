@@ -18,12 +18,12 @@ class Library
     public function addBook(Book $book):void{
         $sql = "INSERT INTO books (isbn, title, author) VALUES (?, ?, ?)";
         $stmt = $this->con->prepare($sql);
-        $stmt->execute(['123456', 'PHP Book', 'John Doe']);
+        $stmt->execute([$book->getIsbn(), $book->getTitle(), $book->getAuthor()]);
 
         echo "Book ".$book->getTitle()."added successfully !";
     }
     public function registerMember(Member $member):void{
-        array_push($this->members);
+        $sql = "INSERT INTO members ()"
     }
     public function borrowBook(Member $member,Book $book):void{
 
