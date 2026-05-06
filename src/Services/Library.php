@@ -2,6 +2,8 @@
 
 namespace Services;
 
+use Entities\Book;
+use Entities\Member;
 use PDO;
 use PDOException;
 
@@ -38,7 +40,7 @@ class Library
         }
     }
 
-    public function showAllBooks(){
+    public function showAllBooks():void{
         try{
             $sql = "SELECT * FROM books";
             $stmt = $this->con->prepare($sql);

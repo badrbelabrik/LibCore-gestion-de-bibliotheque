@@ -9,7 +9,6 @@ CREATE TABLE members(
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE,
-    type VARCHAR(100) NOT NULL,
     id_role INT,
     FOREIGN KEY (id_role) REFERENCES roles(id) ON DELETE SET NULL
 );
