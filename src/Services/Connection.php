@@ -1,6 +1,8 @@
 <?php
 
 namespace Entities;
+use PDO;
+use PDOException;
 class Connection
 {
     private static $pdo = null;
