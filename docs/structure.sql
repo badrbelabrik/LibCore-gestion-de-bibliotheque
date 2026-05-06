@@ -1,0 +1,42 @@
+CREATE DATABASE library_db;
+USE library_db;
+CREATE TABLE users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE
+);
+CREATE TABLE roles(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    label VARCHAR(100) NOT NULL
+);
+CREATE TABLE members(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    type VARCHAR(100) NOT NULL,
+    id_user INT NOT NULL,
+    id_role INT,
+    FOREIGN KEY (id_user) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_role) REFERENCES roles(id) ON DELETE SET NULL
+);
+CREATE TABLE librarians(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_user INT NOT NULL,
+    FOREIGN KEY (id_user) REFERENCES users(id) ON DELETE CASCADE
+);
+CREATE TABLE books(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    isbn VARCHAR(100) UNIQUE,
+    title VARCHAR(100) NOT NULL,
+    author VARCHAR(100) NOT NULL,
+    isAvailable BOOLEAN DEFAULT TRUE,
+    state VARCHAR(100)
+);
+CREATE TABLE borrows(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_member INT NOT NULL,
+    id_book INT NOT NULL,
+    date_borrow DATETIME NOT NULL,
+    date_return DATE NOT NULL,
+    returned BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (id_member) REFERENCES members(id),
+    FOREIGN KEY (id_book) REFERENCES books(id)
+)

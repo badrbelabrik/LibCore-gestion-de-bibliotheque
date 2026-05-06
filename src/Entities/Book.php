@@ -4,9 +4,8 @@ namespace Entities;
 
 class Book
 {
-    private static int $nextId = 1;
+
     private string $isbn;
-    private int $id;
     private string $title;
     private string $author;
     private string $state;
@@ -14,7 +13,6 @@ class Book
 
     public function __construct(string $isbn,string $title,string $author){
     $this->isbn = $isbn;
-    $this->id = self::$nextId++;
     $this->title = $title;
     $this->author = $author;
     $this->state = "disponible";

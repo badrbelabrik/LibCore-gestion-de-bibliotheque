@@ -4,14 +4,30 @@ namespace Entities;
 
 class User
 {
-    private static int $nextId = 1;
-    private int $id;
     private string $name;
     private string $email;
 
     public function __construct(string $name,string $email){
-        $this->id = self::$nextId++;
         $this->name = $name;
+        $this->email = $email;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): void
+    {
         $this->email = $email;
     }
 }
