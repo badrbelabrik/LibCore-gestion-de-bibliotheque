@@ -10,7 +10,7 @@ class Book
     private string $state;
     private bool $isAvailable;
 
-    public function __construct(string $isbn,string $author){
+    public function __construct(string $isbn,string $title,string $author){
     $this->isbn = $isbn;
     $this->title = $title;
     $this->author = $author;

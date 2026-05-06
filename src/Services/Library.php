@@ -5,13 +5,11 @@ namespace Entities;
 class Library
 {
     private string $name;
-    private array $books;
-    private array $users;
+    private Connection $con;
 
-    public function __construct(string $name){
+    public function __construct(string $name ,Connection $con){
         $this->name = $name;
-        $this->books = [];
-        $this->users = [];
+        $this->con=$con;
     }
     public function addBook(Book $book):void{
         $this->books[] = $book;
