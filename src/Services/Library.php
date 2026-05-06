@@ -1,15 +1,16 @@
 <?php
 
-namespace Entities;
+namespace Services;
 
+use PDO;
 use PDOException;
 
 class Library
 {
     private string $name;
-    private Connection $con;
+    private PDO $con;
 
-    public function __construct(string $name,Connection $con){
+    public function __construct(string $name,PDO $con){
         $this->con = $con;
         $this->name = $name;
     }
@@ -47,11 +48,12 @@ class Library
             echo "Error: ".$e->getMessage();
         }
         foreach($books as $book){
-            echo "id: ".$book['id'];
-            echo "isbn: ".$book['isbn'];
-            echo "title: ".$book['title'];
-            echo "author: " .$book['author'];
-            echo "state: " .$book['state'];
+            echo "id: ".$book['id']."\n";
+            echo "isbn: ".$book['isbn']."\n";
+            echo "title: ".$book['title']."\n";
+            echo "author: " .$book['author']."\n";
+            echo "state: " .$book['state']."\n";
+            echo "-------------------------- \n";
         }
     }
     public function borrowBook(Member $member,Book $book):void{
