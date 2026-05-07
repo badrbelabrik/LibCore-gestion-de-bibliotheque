@@ -27,6 +27,20 @@ class Library
             echo "Error: ".$e->getMessage();
         }
     }
+
+    public function deleteBook($id):void{
+        try{
+            $sql = "DELETE FROM books WHERE id = ?";
+            $stmt = $this->con->prepare($sql);
+            $stmt->execute([$id]);
+            echo"Book deleted successfully ! \n";
+        } catch(PDOException $e){
+            echo "Error :".$e->getMessage();
+        }
+
+
+
+    }
     public function registerMember(Member $member):void{
         try{
             $sql = "INSERT INTO members (name,email,member_type) VALUES (?, ?, ?)";

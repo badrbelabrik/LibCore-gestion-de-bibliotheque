@@ -23,6 +23,7 @@ do{
     echo "1)- Add member \n";
     echo "2)- Add book \n";
     echo "3)- Show all books \n";
+    echo "4)- Delete a book \n";
     echo "0 - Exit \n";
     echo "Your choice: ";
     $choix = (int)readline("Enter your choice: \n");
@@ -35,6 +36,9 @@ do{
             break;
         case 3:
             $lib->showAllBooks();
+            break;
+        case 4:
+            $librarian1->deleteBook($lib);
             break;
         default:
             echo "incorrect choice \n";

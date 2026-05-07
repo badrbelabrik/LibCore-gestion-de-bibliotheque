@@ -24,6 +24,12 @@ class Librarian extends User
         $library->addBook($newBook);
     }
 
+    public function deleteBook(Library $library){
+        echo "\n--- Delete BOOK ---\n";
+        echo "Enter the book id: ";
+        $id = trim(fgets(STDIN));
+        $library->deleteBook($id);
+    }
     public function addMember(Library $library):void{
         echo "\n--- ADD NEW MEMBER ---\n";
         echo "Enter the member name: ";
