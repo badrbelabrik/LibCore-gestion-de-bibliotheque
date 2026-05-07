@@ -38,8 +38,6 @@ class Library
             echo "Error :".$e->getMessage();
         }
 
-
-
     }
     public function registerMember(Member $member):void{
         try{

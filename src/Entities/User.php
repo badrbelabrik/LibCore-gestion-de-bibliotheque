@@ -2,7 +2,7 @@
 
 namespace Entities;
 
-class User
+abstract class User
 {
     private string $name;
     private string $email;
