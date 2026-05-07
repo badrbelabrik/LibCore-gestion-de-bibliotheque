@@ -15,15 +15,17 @@ require "src/Services/Library.php";
 $con = Connection::getConnection();
 $lib = new Library("myLibrary",$con);
 $librarian1 = new Librarian("badr","badr.belabrik@gmail.com");
-echo "------ ADMIN MENU ------ \n";
-echo "1)- Add member \n";
-echo "2)- Add book \n";
-echo "3)- Show all books \n";
-echo "0 - Exit \n";
-echo "Your choice: ";
-$choix = (int)readline("Enter your choice: \n");
 
-while($choix !=0){
+
+
+do{
+    echo "------ ADMIN MENU ------ \n";
+    echo "1)- Add member \n";
+    echo "2)- Add book \n";
+    echo "3)- Show all books \n";
+    echo "0 - Exit \n";
+    echo "Your choice: ";
+    $choix = (int)readline("Enter your choice: \n");
     switch($choix){
         case 1:
             $librarian1->addMember($lib);
@@ -37,4 +39,4 @@ while($choix !=0){
         default:
             echo "incorrect choice \n";
     }
-}
+}while($choix !=0);

@@ -22,19 +22,19 @@ class Library
             $stmt = $this->con->prepare($sql);
             $stmt->execute([$book->getIsbn(), $book->getTitle(), $book->getAuthor()]);
 
-            echo "Book ".$book->getTitle()."added successfully !";
+            echo "Book ".$book->getTitle()."added successfully ! \n";
         } catch(PDOException $e){
             echo "Error: ".$e->getMessage();
         }
     }
     public function registerMember(Member $member):void{
         try{
-            $sql = "INSERT INTO members (name,email,type) VALUES (?, ?, ?)";
+            $sql = "INSERT INTO members (name,email,member_type) VALUES (?, ?, ?)";
 
             $stmt = $this->con->prepare($sql);
             $stmt->execute([$member->getName(),$member->getEmail(),$member->getType()]);
 
-            echo "Member".$member->getName()."added successfully !";
+            echo "Member ".$member->getName()." added successfully ! \n";
         } catch(PDOException $e){
             echo "Error: ".$e->getMessage();
         }
@@ -47,9 +47,10 @@ class Library
             $stmt->execute();
             $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch(PDOException $e){
-            echo "Error: ".$e->getMessage();
+            echo "Error: ".$e->getMessage()."\n";
         }
         foreach($books as $book){
+            echo "-------------------------- \n";
             echo "id: ".$book['id']."\n";
             echo "isbn: ".$book['isbn']."\n";
             echo "title: ".$book['title']."\n";

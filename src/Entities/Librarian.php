@@ -13,15 +13,15 @@ class Librarian extends User
 
     public function addBook(Library $library):void{
         echo "\n--- ADD NEW BOOK ---\n";
-
-        $isbn = readline("Enter the ISBN: \n");
-        $title = readline("Enter the title of the book: \n");
-        $author = readline("Enter the author name: \n");
+        echo "Enter the ISBN: ";
+        $isbn = trim(fgets(STDIN));
+        echo "Enter the title of the book: ";
+        $title = trim(fgets(STDIN));
+        echo "Enter the author name: ";
+        $author = trim(fgets(STDIN));
 
         $newBook = new Book($isbn,$title,$author);
         $library->addBook($newBook);
-
-        echo "The book ".$newBook->getTitle()."added successfully !";
     }
 
     public function addMember(Library $library):void{
@@ -30,10 +30,19 @@ class Librarian extends User
         $name = trim(fgets(STDIN));
         echo "Enter the email :";
         $email = trim(fgets(STDIN));
-        echo "Enter the member type (student or professor): ";
-        $type = trim(fgets(STDIN));
+        $memberType = null;
+        do{
+            echo "Member role (1 for student) or (2 for professor): ";
+            $type = trim(fgets(STDIN));
+            if($type == 1){
+                $memberType = 'student';
+            }elseif($type == 2){
+                $memberType = 'professor';
+            }
+        } while ($type != 1 && $type != 2);
 
-        $newMember = new Member($name,$email,$type);
+
+        $newMember = new Member($name,$email,$memberType);
         $library->registerMember($newMember);
     }
 }

@@ -1,16 +1,15 @@
 CREATE DATABASE library_db;
 USE library_db;
 
-CREATE TABLE roles(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    label VARCHAR(100) NOT NULL
+CREATE TABLE types(
+    label VARCHAR(100) PRIMARY KEY NOT NULL
 );
 CREATE TABLE members(
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE,
-    id_role INT,
-    FOREIGN KEY (id_role) REFERENCES roles(id) ON DELETE SET NULL
+    member_type VARCHAR(100),
+    FOREIGN KEY (member_type) REFERENCES types(label) ON DELETE SET NULL
 );
 CREATE TABLE librarians(
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -23,7 +22,7 @@ CREATE TABLE books(
     title VARCHAR(100) NOT NULL,
     author VARCHAR(100) NOT NULL,
     isAvailable BOOLEAN DEFAULT TRUE,
-    state VARCHAR(100)
+    state VARCHAR(100) DEFAULT 'Disponible'
 );
 CREATE TABLE borrows(
     id INT PRIMARY KEY AUTO_INCREMENT,
