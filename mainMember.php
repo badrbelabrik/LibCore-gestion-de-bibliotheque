@@ -1,15 +1,35 @@
 <?php
-require_once "src/Services/Connection.php";
-require_once "src/Services/Library.php";
+require "src/Services/Connection.php";
+require "src/Services/Library.php";
 
-use Services\Connections;
+use Services\Connection;
 use Services\Library;
 
 $db=Connection::getConnection();
 
 $library=new Library($db);
+$stmt = $db->query("SELECT * FROM members");
 
-while (true){
+$members = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+print_r($members);
+
+echo "Enter votre nom: ";
+$name = trim(fgets(STDIN));
+echo "Enter votre email: ";
+$email = trim(fgets(STDIN));
+$member=$library->loginMember($name,$email);
+if($member===false){
+    echo "Invalid credentials \n";
+    exit();
+}
+echo "\n Welcome" . $member['name'] . "\n";
+$memberId=$member['id'];
+
+
+
+
+do {
 
     echo "\n===== MENU MEMBER =====\n";
     echo "1. Search Book\n";
@@ -18,49 +38,53 @@ while (true){
     echo "4. My Borrowed Books\n";
     echo "5. Exit\n";
 
+
     $choice = readline("Choose option : ");
+    switch ($choice) {
 
-    switch ($choice){
         case 1:
-            $title=readline("Entrer book title:");
-            $book=$library->searchBook($title);
-            if(empty($books)){
-                echo  "No books found\n";
-            }else{
-                foreach ($books as $book){
 
-                    echo "ID : " . $book['id'] . "\n";
-                    echo "Title : " . $book['title'] . "\n";
-                    echo "Author : " . $book['author'] . "\n";
-                    echo "State : " . $book['state'] . "\n";
+            echo "Entrer book title: ";
+            $title = trim(fgets(STDIN));
+            $book = $library->searchBook($title);
+            if (empty($book)) {
+                echo "No books found\n";
+            } else {
+                foreach ($book as $b) {
+
+                    echo "ID : " . $b['id'] . "\n";
+                    echo "Title : " . $b['title'] . "\n";
+                    echo "Author : " . $b['author'] . "\n";
+                    echo "State : " . $b['state'] . "\n";
                     echo "----------------------\n";
                 }
 
             }
             break;
-            case 2:
-            $memberId=readline("Entrer your member ID:");
-            $bookId=readline("Enter book ID:");
-            $library->borrowBook($memberId,$bookId);
+        case 2:
+            echo "Enter book ID: ";
+            $bookId = trim(fgets(STDIN));
+
+            $library->borrowBook($memberId, $bookId);
             break;
 
 
-            case 3:
-            $memberId=readline("Entrer your member ID:");
-            $bookId=readline("Enter book ID:");
-            $library->returnBook($memberId,$bookId);
+        case 3:
+            echo "Enter book ID: ";
+            $bookId = trim(fgets(STDIN));
+
+            $library->returnBook($memberId, $bookId);
             break;
         case 4:
 
-            $memberId = readline("Enter your member ID : ");
 
             $books = $library->getBorrowedBooks($memberId);
 
-            if(empty($books)){
+            if (empty($books)) {
                 echo "No borrowed books\n";
-            }else{
+            } else {
 
-                foreach ($books as $book){
+                foreach ($books as $book) {
 
                     echo "Title : " . $book['title'] . "\n";
                     echo "Author : " . $book['author'] . "\n";
@@ -73,7 +97,7 @@ while (true){
 
         case 5:
 
-            echo "Goodbye 👋\n";
+            echo "Goodbye \n";
             exit;
 
         default:
@@ -82,4 +106,5 @@ while (true){
     }
 
 
-}
+
+} while ($choice!=0) ;

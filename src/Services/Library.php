@@ -1,6 +1,6 @@
 <?php
 
-namespace Entities;
+namespace Services;
 use Entities\Book;
 use Entities\Member;
 use Entities\Connection;
@@ -48,7 +48,7 @@ class Library
 
         $stmt=$this->db->prepare(
             "INSERT INTO borrows(id_member,id_book,date_borrow,date_return)
-                    VALUES(?,?,NOW(),DATE_ADD(NOW()),INTERVAL 7 DAY)"
+                    VALUES(?,?,NOW(),DATE_ADD(NOW(), INTERVAL 7 DAY))"
         );
         $stmt->execute([
             $memberId,
@@ -62,7 +62,7 @@ class Library
 
         $stmt = $this->db->prepare(
             "UPDATE borrows
-                    SET returned = TRUE, 
+                    SET returned = TRUE
                         WHERE id_member = ?
                         AND id_book=?"
         );
@@ -73,7 +73,7 @@ class Library
 
         $stmt = $this->db->prepare(
             "UPDATE books 
-                    SET isAvalable=TRUE,
+                    SET isAvailable=TRUE,
                         state='disponible'
                     WHERE id=?
                     "
@@ -91,7 +91,7 @@ class Library
         $stmt = $this->db->prepare(
             "SELECT  b.id,b.title,b.author,br.date_return
              FROM books b
-             JOIN borrows br ON b.id = br.book_id
+             JOIN borrows br ON b.id = br.id_book
              WHERE br.id_member = ?
              AND br.returned=FALSE"
         );
@@ -100,6 +100,19 @@ class Library
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public  function loginMember(string $name, string $email){
+        $stmt=$this->db->prepare(
+            "SELECT * FROM members
+                    WHERE name=? AND email=?"
+        );
+        $stmt->execute([$name,$email]);
+return        $result=$stmt->fetch(PDO::FETCH_ASSOC);
+
+    }
+
+
+
 
 
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Entities;
+namespace Services;
 use PDO;
 use PDOException;
 class Connection
