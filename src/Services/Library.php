@@ -3,7 +3,7 @@
 namespace Services;
 use Entities\Book;
 use Entities\Member;
-use Entities\Connection;
+use Services\Connection;
 use PDO;
 use PDOException;
 
@@ -160,8 +160,8 @@ return        $result=$stmt->fetch(PDO::FETCH_ASSOC);
 
     public function showAllBooks():void{
         try{
-            $sql = "SELECT * FROM books WHERE state != 'Deleted'";
-            $stmt = $this->db->prepare($sql);
+            $sql = "SELECT * FROM books";
+            $stmt = $this->con->prepare($sql);
             $stmt->execute();
             $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch(PDOException $e){
