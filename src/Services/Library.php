@@ -161,7 +161,7 @@ return        $result=$stmt->fetch(PDO::FETCH_ASSOC);
     public function showAllBooks():void{
         try{
             $sql = "SELECT * FROM books";
-            $stmt = $this->con->prepare($sql);
+            $stmt = $this->db->prepare($sql);
             $stmt->execute();
             $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch(PDOException $e){
