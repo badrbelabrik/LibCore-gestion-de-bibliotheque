@@ -13,7 +13,7 @@ require "src/Services/Connection.php";
 require "src/Services/Library.php";
 
 $con = Connection::getConnection();
-$lib = new Library("myLibrary",$con);
+$lib = new Library($con);
 $librarian1 = new Librarian("badr","badr.belabrik@gmail.com");
 
 
