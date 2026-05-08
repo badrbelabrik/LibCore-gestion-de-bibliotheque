@@ -12,8 +12,8 @@ $stmt = $db->query("SELECT * FROM members");
 
 $members = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-print_r($members);
-
+//print_r($members);
+echo "----- Library login system -----\n";
 echo "Enter votre nom: ";
 $name = trim(fgets(STDIN));
 echo "Enter votre email: ";
@@ -23,7 +23,7 @@ if($member===false){
     echo "Invalid credentials \n";
     exit();
 }
-echo "\n Welcome" . $member['name'] . "\n";
+echo "\n Welcome " . $member['name'] . "\n";
 $memberId=$member['id'];
 
 
@@ -38,8 +38,8 @@ do {
     echo "4. My Borrowed Books\n";
     echo "5. Exit\n";
 
-
-    $choice = readline("Choose option : ");
+    echo "Choose option :";
+    $choice = trim(fgets(STDIN));
     switch ($choice) {
 
         case 1:

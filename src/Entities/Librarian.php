@@ -2,6 +2,8 @@
 
 namespace Entities;
 
+use Services\Library;
+
 class Librarian
 {
     public function __construct(){
