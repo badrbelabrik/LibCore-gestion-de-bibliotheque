@@ -4,9 +4,8 @@ namespace Entities;
 
 class Book
 {
-
     private string $isbn;
-    private string $title;
+    private  string $title;
     private string $author;
     private string $state;
     private bool $isAvailable;
@@ -19,63 +18,26 @@ class Book
     $this->isAvailable = true;
     }
 
-    public function getIsbn(): string
-    {
+    public function getIsbn(): string{
         return $this->isbn;
     }
-
-    public function setIsbn(string $isbn): void
-    {
-        $this->isbn = $isbn;
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
-
-    public function getTitle(): string
-    {
+    public function getTitle(): string{
         return $this->title;
     }
-
-    public function setTitle(string $title): void
-    {
-        $this->title = $title;
-    }
-
-    public function getAuthor(): string
-    {
+    public function getAuthor(): string{
         return $this->author;
     }
-
-    public function setAuthor(string $author): void
-    {
-        $this->author = $author;
-    }
-
-    public function getState(): string
-    {
+    public function getState(): string{
         return $this->state;
     }
-
-    public function setState(string $state): void
-    {
+    public function isAvailable(): bool{
+        return $this->isAvailable;
+    }
+    public function setIsAvailable(bool $status): void{
+        $this->isAvailable = $status;
+    }
+    public function setState(string $state): void{
         $this->state = $state;
     }
 
-    public function isAvailable(): bool
-    {
-        return $this->isAvailable;
-    }
-
-    public function setIsAvailable(bool $isAvailable): void
-    {
-        $this->isAvailable = $isAvailable;
-    }
 }

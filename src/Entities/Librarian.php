@@ -2,13 +2,10 @@
 
 namespace Entities;
 
-use Services\Library;
-use Entities\Book;
-
-class Librarian extends User
+class Librarian
 {
-    public function __construct(string $name,string $email){
-        parent::__construct($name,$email);
+    public function __construct(){
+
     }
 
     public function addBook(Library $library):void{
