@@ -109,6 +109,24 @@ class Library
         $stmt->execute([$name,$email]);
 return        $result=$stmt->fetch(PDO::FETCH_ASSOC);
 
+    public function showAllBooks():void{
+        try{
+            $sql = "SELECT * FROM books";
+            $stmt = $this->con->prepare($sql);
+            $stmt->execute();
+            $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch(PDOException $e){
+            echo "Error: ".$e->getMessage()."\n";
+        }
+        foreach($books as $book){
+            echo "-------------------------- \n";
+            echo "id: ".$book['id']."\n";
+            echo "isbn: ".$book['isbn']."\n";
+            echo "title: ".$book['title']."\n";
+            echo "author: " .$book['author']."\n";
+            echo "state: " .$book['state']."\n";
+            echo "-------------------------- \n";
+        }
     }
 
 
