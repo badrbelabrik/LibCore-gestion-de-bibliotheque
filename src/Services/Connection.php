@@ -1,6 +1,7 @@
 <?php
 
 namespace Services;
+
 use PDO;
 use PDOException;
 
@@ -10,14 +11,35 @@ class Connection
 
     public static function getConnection()
     {
-        if (self::$pdo === null) {
-            try {
-                self::$pdo = new PDO("mysql:host=localhost;dbname=library_db", "root", "");
-                self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            } catch (PDOException $e) {
-                die("Connection failed: " . $e->getMessage());
+        if(self::$pdo === null){
+
+            // read .env
+            $env = parse_ini_file(".env");
+
+            $host = $env['DB_HOST'];
+            $dbname = $env['DB_NAME'];
+            $user = $env['DB_USER'];
+            $password = $env['DB_PASSWORD'];
+
+            try{
+
+                self::$pdo = new PDO(
+                    "mysql:host=$host;dbname=$dbname",
+                    $user,
+                    $password
+                );
+
+                self::$pdo->setAttribute(
+                    PDO::ATTR_ERRMODE,
+                    PDO::ERRMODE_EXCEPTION
+                );
+
+            }catch(PDOException $e){
+
+                die("Connection failed : " . $e->getMessage());
             }
         }
+
         return self::$pdo;
     }
 }
