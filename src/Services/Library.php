@@ -30,14 +30,48 @@ class Library
 
     public function deleteBook($id):void{
         try{
-            $sql = "DELETE FROM books WHERE id = ?";
+            $sql = "SELECT * FROM books WHERE id = ?";
             $stmt = $this->con->prepare($sql);
             $stmt->execute([$id]);
-            echo"Book deleted successfully ! \n";
+            $book = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if(!$book){
+                echo "Book not found !";
+                return;
+            }
+            if($book['state'] != "Deleted"){
+                $delSql = "UPDATE books SET isAvailable = false,state = 'Deleted' WHERE id = ?";
+                $stmt = $this->con->prepare($delSql);
+                $stmt->execute([$id]);
+                echo"Book deleted successfully ! \n";
+            } else{
+                echo "The book already deleted from the catalogue !";
+            }
+
         } catch(PDOException $e){
             echo "Error :".$e->getMessage();
         }
+    }
 
+    public function markBookUnderRepair($id){
+        try{
+            $sql = "SELECT * FROM books WHERE id = ?";
+            $stmt = $this->con->prepare($sql);
+            $stmt->execute([$id]);
+            $book = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($book['state'] == 'En réparation'){
+                echo "The book is already under repair\n";
+            } else if($book['isAvailable'] == true && $book['state'] == 'Disponible'){
+                $repairSql = "UPDATE books SET isAvailable = false, state='En réparation' WHERE id = ?";
+                $stmt = $this->con->prepare($repairSql);
+                $stmt->execute([$id]);
+                echo "The book marked under repair !\n";
+            } else{
+                echo "you cant mark this book under repair \n";
+            }
+        }catch(PDOException $e){
+            echo "Error :".$e->getMessage();
+        }
     }
     public function registerMember(Member $member):void{
         try{
@@ -54,7 +88,7 @@ class Library
 
     public function showAllBooks():void{
         try{
-            $sql = "SELECT * FROM books";
+            $sql = "SELECT * FROM books WHERE state != 'Deleted'";
             $stmt = $this->con->prepare($sql);
             $stmt->execute();
             $books = $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -24,6 +24,7 @@ do{
     echo "2)- Add book \n";
     echo "3)- Show all books \n";
     echo "4)- Delete a book \n";
+    echo "5)- Mark book under repair\n";
     echo "0 - Exit \n";
     echo "Your choice: ";
     $choix = (int)readline("Enter your choice: \n");
@@ -39,6 +40,9 @@ do{
             break;
         case 4:
             $librarian1->deleteBook($lib);
+            break;
+        case 5:
+            $librarian1->markBookRepair($lib);
             break;
         default:
             echo "incorrect choice \n";
