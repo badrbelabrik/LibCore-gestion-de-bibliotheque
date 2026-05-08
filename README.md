@@ -204,24 +204,8 @@ php mainAdmin.php
 
 ---
 
-# 🚧 Difficultés Rencontrées
 
-* Gestion des relations SQL
-* Liaison PHP / MySQL avec PDO
-* Architecture POO
-* Gestion des emprunts dynamiques
 
----
-
-# 🚀 Perspectives d’Amélioration
-
-* Interface web moderne
-* Authentification sécurisée
-* Gestion des pénalités de retard
-* Notifications automatiques
-* Dashboard graphique
-
----
 
 # 👥 Réalisé Par
 
