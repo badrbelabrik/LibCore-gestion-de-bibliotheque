@@ -27,6 +27,13 @@ class Librarian
         $id = trim(fgets(STDIN));
         $library->deleteBook($id);
     }
+
+    public function markBookRepair(Library $library){
+        echo "\n--- Mark book under repair ---\n";
+        echo "Enter the book id: ";
+        $id = trim(fgets(STDIN));
+        $library->markBookUnderRepair($id);
+    }
     public function addMember(Library $library):void{
         echo "\n--- ADD NEW MEMBER ---\n";
         echo "Enter the member name: ";
